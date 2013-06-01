@@ -5,50 +5,97 @@ from django.shortcuts import render, render_to_response, redirect
 from django.db.models import Q
 from storage.models import *
 import simplejson as json
+from unipath import FSPath as Path
+from donate.settings import MEDIA_ROOT
+import time, base64
+
+
+def user(request): # login & update user information
+    try:
+        data = json.loads(request.POST['login'])
+
+        if data.has_key: # update
+            tmp = User.objects.get(pk=data['userID'])
+        else: #try to login
+            tmp = User.objects.get(username=data['username']) 
+            if not tmp: # fallback new account
+                tmp = User.objects.get(username=data['username'])
+        tmp.location_lat = data['lat'] \
+                if data.has_key('lat') else tmp.location_lat
+        tmp.location_lon = data['lon'] \
+                if data.has_key('lon') else tmp.location_lon
+        tmp.contact = data['contact'] \
+                if data.has_key('contact') else tmp.contact
+        tmp.save()
+        return HttpResponse(json.dumps({'userID':tmp.pk}), status=200)
+    except Exception, e:
+        return HttpResponse(str(e), status=500)
 
 
 def search(request):
     resp = ''
+    data = {}
     try:
-        data = json.loads(request.POST['data'])
+        data = json.loads(request.POST['search'])
     except Exception, e:
         return HttpResponse(str(e), status=500)
     ret = Obj.objects.all()
     try:
         if data.has_key('searchstr'):
-            ret = ret.filter(Q(name__contains=data['searchstr']) | \
-                Q(description__contains=data['searchstr']))
+            for chunk in data['searchstr'].split(' '):
+                ret = ret.filter(Q(name__contains=chunk) | \
+                    Q(description__contains=chunk) | \
+                    Q(tags=chunk))
         if data.has_key('searchcat') and int(data['searchcat']) > 0 :
             ret = ret.filter(category=int(data['searchcat']))
         if data.has_key('searchschool') and int(data['searchschool']) > 0:
             ret = ret.filter(school=int(data['searchschool']))
         resp = [dict(zip(['objectName', 'school', 'category', 'description', \
-                'owner', 'owner_name', 'tag'], p)) for p in \
+                'owner', 'owner_name', 'tag', 'picture'], p)) for p in \
                 ret.select_related('owner__username').values_list(\
                 'name', 'school__value', 'category__value', 'description', \
-                'owner', 'owner__name', 'tags')]
+                'owner', 'owner__username', 'tags', 'picture')]
     except Exception, e:
         return HttpResponse(str(e), status=500)
     return HttpResponse(resp, status=200)
 
 def publish(request):
     try:
-        data = json.loads(request.POST['data'])
+        data = json.loads(request.POST['publish'])
     except Exception, e:
         return HttpResponse(str(e), status=500)
     if data.has_key('delete') and data['delete']:
-
-        pass # Delete pk
-        # 200 if deleted ok
-        return HttpResponse(status=200)
-        # 500 if something went wrong [like unauthorized]
-        return HttpResponse(status=500)
+        try:
+            tmp = Obj.objects.get(pk=int(data['objectPK']))
+            if tmp.owner.pk == int(data['userID']):
+                tmp.delete()
+                return HttpResponse(status=200)
+            else:
+                return HttpResponse(status=403)
+        except Exception, e:
+            return HttpResponse(str(e), status=500)
     elif data.has_key('pk') and int(data['pk']) > 0:
-        pass # updade object
-    else:
-        pass # create
+        try: # update exists and if authorized
+            tmp = Obj.objects.get(pk=int(data['objectPK']))
+            if tmp.owner.pk != int(data['userID']):
+                return HttpResponse(status=403)
+        except Exception, e:
+            return HttpResponse(status=404)
+    else: # build new one
+        tmp = Obj()
 
-# expect o = (new|update) object
+    tmp.name = data['objectName'] if data.has_key('objectName') else tmp.name
+    tmp.tags = data['tags'] if data.has_key('tags') else tmp.tags
+    tmp.school = int(data['school']) if data.has_key('school') else tmp.school
+    tmp.category = int(data['category']) \
+        if data.has_key('category') else tmp.category
+    tmp.description = data['description'] \
+        if data.has_key('description') else tmp.description
+    if data.has_key('image') :
+        tmp.picture = \
+            save_img(int(data['userID']), data['image'], data['image_ext'])
+
+
     return HttpResponse(o.json, status=200)
 
 def bootstrap(request):
@@ -60,3 +107,14 @@ def bootstrap(request):
             [dict(zip(['pk','value'],p)) \
             for p in School.objects.values_list('pk','value')]
     }), status=200)
+
+
+
+################################################################################
+
+# save an img -> returns file name
+def save_img(obj_pk, img_base64, ext):
+    img_name = '%s_%s.%s' % (obj_pk,time.time()*(10**3), ext)
+    with open(MEDIA_ROOT.child(img_name), 'wb') as f:
+        f.write(base64.decode(img_base64))
+    return img_name

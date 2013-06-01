@@ -1,7 +1,7 @@
 from django.db import models
 
 class User(models.Model):
-    username = models.CharField(max_length=255, verbose_name=('username'), null=False, blank=False)
+    username = models.CharField(unique=True, max_length=255, verbose_name=('username'), null=False, blank=False)
     location_lat = models.DecimalField(max_digits=19, decimal_places=16, blank=True, null=True)
     location_lon = models.DecimalField(max_digits=19, decimal_places=16, blank=True, null=True)
     contact = models.CharField(max_length=255, verbose_name=('principal contact'), null=False, blank=False)
@@ -47,13 +47,14 @@ class Obj(models.Model):
     name = models.CharField(max_length=255, verbose_name=('donation name'), null=False, blank=True)
     tags = models.CharField(max_length=500, verbose_name=('tags'), null=False, blank=True, default="")
     school = models.ForeignKey(School, verbose_name=('school'))
-    cat = models.ForeignKey(Category, verbose_name=('category'))
+    category = models.ForeignKey(Category, verbose_name=('category'))
     description = models.TextField(default='', null=False, blank=True)
     owner = models.ForeignKey(User, null=False)
+    picture = models.CharField(max_length=50, verbose_name=('picture file name'), null=False, blank=True)
 
     class Meta(object):
         verbose_name = 'object'
         verbose_name_plural = 'objects'
 
     def __unicode__(self):
-        return '%s [%s]' % (self.name, [str(t) for t in self.tags.all()].join(','))
+        return '%s [%s]' % (self.name, self.tags)

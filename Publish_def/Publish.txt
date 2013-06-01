@@ -1,31 +1,32 @@
-
 PUBLISH
 {
-	"userID": "",
-	"objectName": "",
-	"tag": "",
-	"school": "",
-	"category": "",
-	"description" : "",
-	"image" : BASE64
+    "userID": "",
+    "objectName": "",
+    "tags": "",
+    "school": "",
+    "category": "",
+    "description" : "",
+    "image" : BASE64,
+    "image_ext" : ""
 }
 
 // insert just the keys to change
 UPDATE
 {
-	"userID": "",
-	"objectPK": "",
-	"objectName": "",
-	"tag": "",
-	"school": "",
-	"category": "",
-	"description" : "",
-	"image" : BASE64
+    "userID": "",
+    "objectPK": "",
+    "objectName": "",
+    "tags": "",
+    "school": "",
+    "category": "",
+    "description" : "",
+    "image" : BASE64,
+    "image_ext" : ""
 }
 
 DELETE
 {
-	"userID": "",
-	"objectPK": "",
-	"delete" : 1,
+    "userID": "",
+    "objectPK": "",
+    "delete" : 1,
 }
