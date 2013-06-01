@@ -1,1 +1,5 @@
 We wish to define the JSON format of our query.
+
+{
+user
+}
