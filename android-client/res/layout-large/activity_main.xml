@@ -6,22 +6,22 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity"
-    android:background="#FF00FF" >
+    tools:context=".MainActivity" >
 
     
     <fragment class="com.rhok.donatemyschoolstuff.fragments.SearchFragment"
         android:id="@+id/searchFragment"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight=".30"
+        android:layout_weight=".50"
         />
     
-
-    <TextView
-         android:layout_width="0dp"
+      <fragment class="com.rhok.donatemyschoolstuff.fragments.ResultFragment"
+        android:id="@+id/resultFragment"
+        android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight=".70"
-        android:text="@string/hello_world"
-        android:id="@+id/test"  />
+        android:layout_weight=".50"
+        />
+
+  
 </LinearLayout>

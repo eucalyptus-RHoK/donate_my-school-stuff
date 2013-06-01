@@ -1,0 +1,29 @@
+We wish to define the JSON format of our query.
+
+REQUEST
+{
+"userID":
+	{
+	"searchstr": "",
+	"searchcat":"",
+	"searchschool":"",
+	},
+},
+
+RESPOND
+{
+"objectname":
+	{"tag": "",
+	"school": "",
+	"category": "",
+	"description": "",
+	"owner": "",
+	},
+"objectname":
+	{"tag": "",
+	"school": "",
+	"category": "",
+	"description": "",
+	"owner": "",
+	},
+} 

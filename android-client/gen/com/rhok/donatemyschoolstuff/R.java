@@ -24,26 +24,32 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000a;
-        public static final int b_add=0x7f080003;
-        public static final int b_search=0x7f080008;
-        public static final int description=0x7f080006;
-        public static final int img=0x7f080005;
-        public static final int list_search_result=0x7f080009;
-        public static final int my_publishes=0x7f080004;
-        public static final int name=0x7f080001;
-        public static final int posto=0x7f080007;
+        public static final int action_settings=0x7f08000f;
+        public static final int b_add=0x7f080007;
+        public static final int b_search=0x7f08000d;
+        public static final int description=0x7f08000a;
+        public static final int email=0x7f080005;
+        public static final int go=0x7f080006;
+        public static final int img=0x7f080009;
+        public static final int list_search_result=0x7f08000e;
+        public static final int my_publishes=0x7f080008;
+        public static final int name=0x7f080003;
+        public static final int resultFragment=0x7f080002;
+        public static final int schoolSpinner=0x7f08000b;
         public static final int searchFragment=0x7f080000;
-        public static final int tags=0x7f080002;
+        public static final int tagSpinner=0x7f08000c;
+        public static final int tags=0x7f080004;
+        public static final int test=0x7f080001;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int add_item_layout=0x7f030001;
-        public static final int mapview_layout=0x7f030002;
-        public static final int publishes=0x7f030003;
-        public static final int row_view=0x7f030004;
-        public static final int search_layout=0x7f030005;
-        public static final int search_result=0x7f030006;
+        public static final int login_layout=0x7f030002;
+        public static final int mapview_layout=0x7f030003;
+        public static final int publishes=0x7f030004;
+        public static final int row_view=0x7f030005;
+        public static final int search_layout=0x7f030006;
+        public static final int search_result=0x7f030007;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -52,7 +58,9 @@ public final class R {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int description=0x7f050007;
+        public static final int go=0x7f050008;
         public static final int hello_world=0x7f050002;
+        public static final int message=0x7f050009;
         public static final int name=0x7f050003;
         public static final int place=0x7f050005;
         public static final int search=0x7f050006;
