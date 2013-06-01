@@ -13,23 +13,13 @@
  	    android:layout_width="fill_parent"
  	    android:layout_height="wrap_content"/>
     
- 	<TextView 
- 	    android:text="@string/place"
- 	   android:layout_width="wrap_content"
- 	   android:layout_height="wrap_content"/>
+ 	<Spinner android:id="@+id/schoolSpinner" 
+ 	    android:layout_width="match_parent"
+		android:layout_height="wrap_content"></Spinner>
     
-    <EditText android:id="@+id/posto"
- 	    android:layout_width="fill_parent"
- 	    android:layout_height="wrap_content"/>
-    
- 	<TextView 
- 	    android:text="@string/tags"
- 	   android:layout_width="wrap_content"
- 	   android:layout_height="wrap_content"/>
- 	
- 	<EditText android:id="@+id/tags"
- 	    android:layout_width="fill_parent"
- 	    android:layout_height="wrap_content"/>
+ 	<Spinner android:id="@+id/tagSpinner" 
+ 	    android:layout_width="match_parent"
+		android:layout_height="wrap_content"></Spinner>
  	
  	<LinearLayout 
  	    android:layout_height="wrap_content"
@@ -39,7 +29,8 @@
 	 	<Button android:id="@+id/b_search"
 	 	    android:text="@string/search"
 	 	    android:layout_width="wrap_content"
-	 	    android:layout_height="wrap_content"/>
+	 	    android:layout_height="wrap_content"
+	 	    android:onClick="onClick"/>
  	
  	</LinearLayout>
     

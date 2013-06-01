@@ -28,10 +28,20 @@ def publish(request):
         return HttpResponse(status=200)
         # 500 if something went wrong [like unauthorized]
         return HttpResponse(status=500)
-    else if data.has_key('pk') and int(data['pk']) > 0:
+    elif data.has_key('pk') and int(data['pk']) > 0:
         pass # updade object
     else:
         pass # create
 
 # expect o = (new|update) object
     return HttpResponse(o.json, status=200)
+
+def bootstrap(request):
+    return HttpResponse(json.dumps({
+        'categories' :
+            [dict(zip(['pk','value'],p)) \
+            for p in Category.objects.values_list('pk','value')],
+        'schools' : 
+            [dict(zip(['pk','value'],p)) \
+            for p in School.objects.values_list('pk','value')]
+    }), status=200)
