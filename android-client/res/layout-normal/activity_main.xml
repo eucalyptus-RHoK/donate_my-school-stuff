@@ -6,7 +6,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:background="#FF00FF"
+     >
 
     
     <fragment class="com.rhok.donatemyschoolstuff.fragments.SearchFragment"
@@ -27,5 +29,5 @@
          android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight=".20"
-        android:text="ASDASDA" />
+        android:text="hgfhjf" />
 </LinearLayout>
