@@ -3,7 +3,7 @@ from django.db import models
 class User(models.Model):
 	username = models.CharField()
 	place = models.CharField()
-	contacts = models.CharField()
+	contact = models.CharField()
 	
 	
 class Object(models.Model):

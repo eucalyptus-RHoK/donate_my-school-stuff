@@ -2,11 +2,18 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render, render_to_response, redirect
+from storage.models import *
 import simplejson as json
 
 
 def search(request):
     resp = ''
+    try:
+		data = json.loads(request.POST['data'])
+		
+    except Exception, e:
+        return HttpResponse(str(e), status=500)	
+	
     return HttpResponse(resp, status=200)
 
 def publish(request):
