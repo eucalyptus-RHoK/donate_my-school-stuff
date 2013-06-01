@@ -56,4 +56,4 @@ class Obj(models.Model):
         verbose_name_plural = 'objects'
 
     def __unicode__(self):
-        return '%s [%s]' % (self.name, [str(t) for t in self.tags.all()].join(',')
+        return '%s [%s]' % (self.name, [str(t) for t in self.tags.all()].join(','))

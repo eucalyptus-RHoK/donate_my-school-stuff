@@ -28,3 +28,8 @@ def publish(request):
 
 # expect o = (new|update) object
     return HttpResponse(o.json, status=200)
+
+def category(request):
+    return json.dumps([dict(zip(['pk','value'],p)) \
+            for p in Category.objects.values_list('pk','value')])
+
