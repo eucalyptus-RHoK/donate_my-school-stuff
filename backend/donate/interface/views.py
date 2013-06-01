@@ -38,5 +38,4 @@ def bootstrap(request):
         'schools' : 
             [dict(zip(['pk','value'],p)) \
             for p in School.objects.values_list('pk','value')]
-    }, status=200)
-
+    }), status=200)
