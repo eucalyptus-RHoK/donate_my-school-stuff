@@ -14,7 +14,7 @@ import com.rhok.donatemyschoolstuff.R;
 
 public class MainActivity extends Activity {
 
-	Spinner tagSpinner;
+	Spinner tagSpinner, schoolSpinner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +22,17 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		tagSpinner = (Spinner) findViewById(R.id.tagSpinner);
+		schoolSpinner = (Spinner) findViewById(R.id.schoolSpinner);
 
 		String categories[] = getCategories();
+		String school[] = getSchool();
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, categories);
 		tagSpinner.setAdapter(adapter);
+
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, school);
+		schoolSpinner.setAdapter(adapter);
 
 		int mask = (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK);
 		switch (mask) {
@@ -63,8 +69,13 @@ public class MainActivity extends Activity {
 	}
 
 	public String[] getCategories() {
+		String categories[] = { "Categoria" };
+		return categories;
+	}
 
-		return null;
+	public String[] getSchool() {
+		String school[] = { "Scuola" };
+		return school;
 	}
 
 }
