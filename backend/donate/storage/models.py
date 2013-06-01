@@ -15,7 +15,7 @@ class School(models.Model):
 class Category(models.Model):
     value = models.CharField(max_length=255, default='', blank=False, null=False)
 
-class Object(models.Model):
+class Obj(models.Model):
     name = models.CharField(max_length=255, verbose_name=('donation name'), null=False, blank=True)
     tags = models.ManyToManyField(Tag, verbose_name=('tags'))
     school = models.ForeignKey(School, verbose_name=('school'))
