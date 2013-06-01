@@ -1,0 +1,67 @@
+PUBLISH
+{
+    "userID": "",
+    "objectName": "",
+    "tags": "",
+    "school": "",
+    "category": "",
+    "description" : "",
+    "image" : BASE64,
+    "image_ext" : ""
+}
+
+// !IMPORTANT insert ONLY the tuple (key,value) to change
+UPDATE
+{
+    "userID": "",
+    "objectPK": "",
+    "objectName": "",
+    "tags": "",
+    "school": "",
+    "category": "",
+    "description" : "",
+    "image" : BASE64,
+    "image_ext" : ""
+}
+
+DELETE
+{
+    "userID": "",
+    "objectPK": "",
+    "delete" : True,
+}
+
+
+QUERY
+{
+    "userID": '',
+    "searchstr": "",
+    "searchcat":"",
+    "searchschool":"",
+
+},
+
+QUERY RESPONS
+[
+    "objectPK": {
+        "objectName" : "",
+        "tags": "",
+        "school": "",
+        "category": "",
+        "description": "",
+        "owner": "",
+        "owner_username": "",
+    }
+]
+
+// LOGIN - USER CREATION - USER DATA UPDATE
+// login: require only username
+// update: require userId; insert only tuple to update
+{
+    userID:                     //only on update && login
+    username : ''
+    lat : 
+    lon : 
+    contact : ''
+
+}
