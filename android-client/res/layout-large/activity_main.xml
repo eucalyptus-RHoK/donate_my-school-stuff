@@ -18,8 +18,8 @@
         android:layout_weight=".50"
         />
     
-      <fragment class="com.rhok.donatemyschoolstuff.fragments.ResultFragment"
-        android:id="@+id/resultFragment"
+      <fragment class="com.rhok.donatemyschoolstuff.fragments.LoginFragment"
+        android:id="@+id/loginFragment"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight=".50"

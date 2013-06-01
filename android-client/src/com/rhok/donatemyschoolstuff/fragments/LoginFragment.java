@@ -7,10 +7,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.rhok.donatemyschoolstuff.R;
 
 public class LoginFragment extends Fragment {
+
+	SharedPreferences prefs;
+
+	EditText edit;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,16 +29,24 @@ public class LoginFragment extends Fragment {
 
 		super.onActivityCreated(savedInstanceState);
 
-		SharedPreferences prefs = getActivity().getPreferences(
-				Context.MODE_PRIVATE);
+		edit = (EditText) this.getView().findViewById(R.id.email);
+
+		prefs = getActivity().getPreferences(Context.MODE_PRIVATE);
 
 		String logged_user = prefs.getString("user", "");
 
 		if (logged_user != "") {
-
+			edit.setText(logged_user);
 			// do auto login
 
 		}
+
+	}
+
+	public void onClick(View v) {
+		Toast.makeText(v.getContext(), "LOOGIN", Toast.LENGTH_LONG);
+
+		prefs.edit().putString("user", edit.getText().toString());
 
 	}
 
