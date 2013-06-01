@@ -3,10 +3,12 @@ package com.rhok.donatemyschoolstuff.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -41,12 +43,19 @@ public class LoginFragment extends Fragment {
 
 		}
 
-	}
+		((Button) getView().findViewById(R.id.go))
+				.setOnClickListener(new View.OnClickListener() {
 
-	public void onClick(View v) {
-		Toast.makeText(v.getContext(), "LOOGIN", Toast.LENGTH_LONG);
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(v.getContext(), "LOOGIN",
+								Toast.LENGTH_LONG).show();
 
-		prefs.edit().putString("user", edit.getText().toString());
+						Editor editor = prefs.edit();
+						editor.putString("user", edit.getText().toString());
+						editor.apply();
+					}
+				});
 
 	}
 

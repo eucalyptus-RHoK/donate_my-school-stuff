@@ -1,38 +1,26 @@
 package com.rhok.donatemyschoolstuff.activities;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.Fragment;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.rhok.donatemyschoolstuff.R;
+import com.rhok.donatemyschoolstuff.adapters.LayoutAdapter;
+import com.rhok.donatemyschoolstuff.adapters.PhoneLayoutAdapter;
+import com.rhok.donatemyschoolstuff.adapters.TabletLayoutAdapter;
 
 public class MainActivity extends Activity {
 
-	Spinner tagSpinner, schoolSpinner;
+	LayoutAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		tagSpinner = (Spinner) findViewById(R.id.tagSpinner);
-		schoolSpinner = (Spinner) findViewById(R.id.schoolSpinner);
-
-		String categories[] = getCategories();
-		String school[] = getSchool();
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, categories);
-		tagSpinner.setAdapter(adapter);
-
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, school);
-		schoolSpinner.setAdapter(adapter);
 
 		int mask = (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK);
 		switch (mask) {
@@ -40,9 +28,22 @@ public class MainActivity extends Activity {
 		case Configuration.SCREENLAYOUT_SIZE_NORMAL:
 		case Configuration.SCREENLAYOUT_SIZE_SMALL:
 			super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+			Fragment searchFrag = getFragmentManager().findFragmentById(
+					R.id.searchFragment);
+
+			adapter = new PhoneLayoutAdapter(this);
+
 			break;
 		default:
 			super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+			searchFrag = getFragmentManager().findFragmentById(
+					R.id.searchFragment);
+			Fragment loginFrag = getFragmentManager().findFragmentById(
+					R.id.loginFragment);
+
+			adapter = new TabletLayoutAdapter(this);
 
 		}
 
@@ -56,26 +57,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.b_search:
-			Intent intent = new Intent(this, SearchResult.class);
-			startActivity(intent);
-			// TODO call server to get answer
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	public String[] getCategories() {
-		String categories[] = { "Categoria" };
-		return categories;
-	}
-
-	public String[] getSchool() {
-		String school[] = { "Scuola" };
-		return school;
+		adapter.onClick(v);
 	}
 
 }
