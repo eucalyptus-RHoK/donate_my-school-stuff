@@ -12,7 +12,7 @@
     <string name="place">Place:</string>
     <string name="search">Cerca</string>
     <string name="description">Descrizione</string>
-    <string name="go">Go</string>
+    <string name="go">Accedi</string>
     <string name="message">Per vedere o aggiungere le tue pubblicazioni devi inserire la tua mail. </string>
 
 </resources>
