@@ -31,12 +31,12 @@ def publish(request):
     return HttpResponse(o.json, status=200)
 
 def bootstrap(request):
-    return json.dumps({
+    return HttpResponse(json.dumps({
         'categories' :
             [dict(zip(['pk','value'],p)) \
             for p in Category.objects.values_list('pk','value')],
         'schools' : 
             [dict(zip(['pk','value'],p)) \
             for p in School.objects.values_list('pk','value')]
-    })
+    }, status=200)
 
