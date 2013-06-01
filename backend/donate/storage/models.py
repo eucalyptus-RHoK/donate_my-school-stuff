@@ -45,7 +45,7 @@ class Category(models.Model):
 
 class Obj(models.Model):
     name = models.CharField(max_length=255, verbose_name=('donation name'), null=False, blank=True)
-    tags = models.ManyToManyField(Tag, verbose_name=('tags'))
+    tags = models.CharField(max_length=500, verbose_name=('tags'), null=False, blank=True, default="")
     school = models.ForeignKey(School, verbose_name=('school'))
     cat = models.ForeignKey(Category, verbose_name=('category'))
     description = models.TextField(default='', null=False, blank=True)
