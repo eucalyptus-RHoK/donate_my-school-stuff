@@ -1,8 +1,6 @@
 package com.rhok.donatemyschoolstuff.activities;
 
 import com.rhok.donatemyschoolstuff.R;
-import com.rhok.donatemyschoolstuff.R.layout;
-import com.rhok.donatemyschoolstuff.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
