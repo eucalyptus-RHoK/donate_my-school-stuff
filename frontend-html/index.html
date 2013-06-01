@@ -28,9 +28,9 @@ html {
 	height: 80%;
 	width: 100%;
 }
-#mapwrapper{
-height: 400px;
 
+#mapwrapper {
+	height: 400px;
 }
 </style>
 
@@ -119,9 +119,29 @@ height: 400px;
 						<legend>Search field</legend>
 
 						<div class="row">
-							<div class="large-10 columns">
+							<div class="large-6 columns">
 								<input type="text" placeholder="What are you searching?">
 							</div>
+
+							<div class="large-6 columns">
+								<label for="customDropdown1">Medium Example</label> <select
+									id="customDropdown1" class="medium">
+									<option DISABLED>This is a dropdown</option>
+									<option>This is another option</option>
+									<option>This is another option too</option>
+									<option>Look, a third option</option>
+								</select> <label for="customDropdown1">Medium Example</label> <select
+									id="customDropdown1" class="medium">
+									<option DISABLED>This is a dropdown</option>
+									<option>This is another option</option>
+									<option>This is another option too</option>
+									<option>Look, a third option</option>
+								</select>
+
+							</div>
+
+						</div>
+						<div class="row">
 							<div class="large-2 columns">
 								<img src="./img/search.jpg" style="height: 40px; width: 40px;" />
 							</div>
@@ -134,11 +154,9 @@ height: 400px;
 
 	<div class="row">
 		<div class="large-8 columns">
-			<p>
-			put your result!!! 
-			</p>
+			<p>put your result!!!</p>
 		</div>
-		<div id="mapwrapper"class="large-4 columns">
+		<div id="mapwrapper" class="large-4 columns">
 			<div id="map-canvas" />
 		</div>
 	</div>
