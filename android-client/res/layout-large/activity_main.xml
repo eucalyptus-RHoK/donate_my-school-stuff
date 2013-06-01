@@ -13,19 +13,15 @@
         android:id="@+id/searchFragment"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight=".30"
+        android:layout_weight=".50"
         />
     
-
-    <TextView
-         android:layout_width="0dp"
+      <fragment class="com.rhok.donatemyschoolstuff.fragments.ResultFragment"
+        android:id="@+id/resultFragment"
+        android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight=".50"
-        android:text="@string/hello_world"
-        android:id="@+id/test" />
-        <TextView
-         android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight=".20"
-        android:text="ASDASDA" />
+        />
+
+  
 </LinearLayout>

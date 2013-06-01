@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 			break;
 		default:
 			super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-			txt.setText("large or larger");
+
 		}
 
 	}
