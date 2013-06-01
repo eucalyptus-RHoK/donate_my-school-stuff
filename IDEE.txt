@@ -1,0 +1,7 @@
+What the user should be allowed to do?
+
+	Search fo an object
+	Look the Map
+	Publish an Object
+	Open ID
+	Notifications (email,...)
