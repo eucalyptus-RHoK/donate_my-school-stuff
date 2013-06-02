@@ -3,7 +3,7 @@
 ### Project description ###
 www.rhok.org/problems/donate-my-school-stuff
 
-### Team members: ####
+### Team members ####
 - Davide Giovannini <giovannini.davide90@gmail.com> (GTalk)
 - Dieu Thu Le <dieu.thu@gmail.com>
 - Erinda Jaupaj <erindajaupi@gmail.com> (GTalk)
