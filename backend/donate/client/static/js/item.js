@@ -27,10 +27,18 @@
       this.render();
     },
     render: function () {
+      var self = this;
       $('#data-panel').show();
       $('#homepage').hide();
       new SideBarView();
-      this.$el.html(_.template($("#search-template").html()));
+
+      $.get('/interface/bootstrap/', function (data) {
+        data = $.parseJSON(data);
+        self.$el.html(_.template($("#search-template").html(), {
+          schools: data.schools,
+          categories: data.categories
+        }));
+      })
     }
   });
 
