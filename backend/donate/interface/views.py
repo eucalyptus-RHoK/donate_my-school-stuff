@@ -96,7 +96,7 @@ def publish(request):
             #return HttpResponse('UserId required', status=500)
             # demo - test
             tmpo = User()
-            tmpo.username = "AutoUser"
+            tmpo.username = "AutoUser"+(User.objects.all().count())
             tmpo.contact = "user@domain.xx"
             tmpo.save()
             tmp.owner=tmpo
