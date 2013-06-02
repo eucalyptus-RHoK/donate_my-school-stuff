@@ -50,7 +50,7 @@ def search(request):
         if data.has_key('searchschool') and int(data['searchschool']) > 0:
             ret = ret.filter(school__pk=int(data['searchschool']))
 
-        resp = [p.obj for p in ret.order_by('-last_mod')[0:20]]
+        resp = [p.obj() for p in ret.order_by('-last_mod')[0:20]]
 
         if len(resp) == 0 and data.has_key('userID'):
             ss = SuspendedSearch()
