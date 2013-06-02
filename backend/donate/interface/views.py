@@ -73,7 +73,7 @@ def search(request):
 
 @csrf_exempt
 def publish(request):
-    data = request.POST['publish']
+    data = request.POST
     if data.has_key('delete') and data['delete']:
         try:
             tmp = Obj.objects.get(pk=int(data['objectPK']))
