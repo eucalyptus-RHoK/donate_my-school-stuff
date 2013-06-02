@@ -72,7 +72,7 @@ class Obj(models.Model):
             'description' : self.description or '',
             'owner' : self.owner.username or '',
             'tags' : self.tags or '',
-            'picture' : '%s/%s' % (MEDIA_URL, self.picture) \
+            'picture' : '%s%s' % (MEDIA_URL, self.picture) \
                 if self.picture else ''
         }
 
