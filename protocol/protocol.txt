@@ -8,6 +8,8 @@ PUBLISH
     "description" : "",
     "image" : BASE64,
     "image_ext" : ""
+    lat : 
+    lon : 
 }
 
 // !IMPORTANT insert ONLY the tuple (key,value) to change
@@ -22,6 +24,8 @@ UPDATE
     "description" : "",
     "image" : BASE64,
     "image_ext" : ""
+    lat : 
+    lon : 
 }
 
 DELETE
@@ -51,6 +55,8 @@ QUERY RESPONS
         "description": "",
         "owner": "",
         "owner_username": "",
+        lat : 
+        lon : 
     }
 ]
 
