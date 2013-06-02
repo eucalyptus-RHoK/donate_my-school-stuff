@@ -93,11 +93,13 @@ def publish(request):
             return HttpResponse(status=404)
     else: # build new one
         tmp = Obj()
+        tmp.owner_id = int(data.get('userID'))
+
 
     tmp.name = data['objectName'] if data.has_key('objectName') else tmp.name
     tmp.tags = data['tags'] if data.has_key('tags') else tmp.tags
-    tmp.school = int(data['school']) if data.has_key('school') else tmp.school
-    tmp.category = int(data['category']) \
+    tmp.school_id = int(data['school']) if data.has_key('school') else tmp.school
+    tmp.category_id = int(data['category']) \
         if data.has_key('category') else tmp.category
     tmp.description = data['description'] \
         if data.has_key('description') else tmp.description
@@ -105,11 +107,12 @@ def publish(request):
         if data.has_key('lat') else tmp.location_lat
     tmp.location_lon = data['lon'] \
         if data.has_key('lon') else tmp.location_lon
-    if data.has_key('image') :
+    if data.has_key('image'):
         tmp.picture = \
             save_img(int(data['userID']), data['image'], data['image_ext'])
 
-    return HttpResponse(o.json, status=200)
+    tmp.save()
+    return HttpResponse(tmp.json, status=200)
 
 @csrf_exempt
 def bootstrap(request):
@@ -130,5 +133,5 @@ def bootstrap(request):
 def save_img(obj_pk, img_base64, ext):
     img_name = '%s_%s.%s' % (obj_pk,time.time()*(10**3), ext)
     with open(MEDIA_ROOT.child(img_name), 'wb') as f:
-        f.write(base64.decode(img_base64))
+        f.write(base64.b64decode(img_base64))
     return img_name
