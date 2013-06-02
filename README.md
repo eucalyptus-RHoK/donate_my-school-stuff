@@ -1,13 +1,13 @@
-# donate_my-school-stuff #
-#==============================================================================##
+# Donate my-school-stuff #
 
-## Project description ##
+### Project description ###
 www.rhok.org/problems/donate-my-school-stuff
 
-# Team member: #
->Lorenzo Waldner <kappaquindici@gmail.com> (Gtalk)
->Martino Bernard <martino.b.cechinol@gmail.com>
->Davide Giovannini <giovannini.davide90@gmail.com> (GTalk)
->Erinda Jaupaj <erindajaupi@gmail.com> (GTalk)
->Md Shahid Ullah <Shahideee04@gmail.com>
->Martin Brugnara <martin.brugnara@gmail.com>
+### Team members ####
+- Davide Giovannini <giovannini.davide90@gmail.com> (GTalk)
+- Dieu Thu Le <dieu.thu@gmail.com>
+- Erinda Jaupaj <erindajaupi@gmail.com> (GTalk)
+- Lorenzo Waldner <kappaquindici@gmail.com> (Gtalk)
+- Martin Brugnara <martin.brugnara@gmail.com>
+- Martino Bernard <martino.b.cechinol@gmail.com>
+- Md Shahid Ullah <Shahideee04@gmail.com>
