@@ -52,8 +52,8 @@ def search(request):
                 'owner', 'owner_name', 'tag', 'picture'], p)) for p in \
                 ret.select_related('owner__username').values_list(\
                 'name', 'school__value', 'category__value', 'description', \
-                'owner', 'owner__username', 'tags', 'picture').sort(\
-                -last_mod)[0:20]]
+                'owner', 'owner__username', 'tags', 'picture').order_by(\
+                '-last_mod')[0:20]]
         if len(resp) == 0 and data.has_key('userID'):
             ss = SuspendedSearch()
             ss.user = data['userID']
