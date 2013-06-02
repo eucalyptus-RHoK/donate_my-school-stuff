@@ -118,7 +118,7 @@ def publish(request):
             save_img(int(data['userID']), data['image'], data['image_ext'])
 
     tmp.save()
-    return HttpResponse(tmp.obj(), status=200)
+    return HttpResponse(json.dumps(tmp.obj()), status=200)
 
 @csrf_exempt
 def bootstrap(request):
