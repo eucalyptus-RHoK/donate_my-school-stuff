@@ -1,4 +1,5 @@
 from django.db import models
+from donate.settings import MEDIA_URL
 
 class User(models.Model):
     username = models.CharField(unique=True, max_length=255, verbose_name=('username'), null=False, blank=False)
@@ -71,7 +72,7 @@ class Obj(models.Model):
             'description' : self.description or '',
             'owner' : self.owner.username or '',
             'tags' : self.tags or '',
-            'picture' : '%s/%s' % (MEDIA_ROOT, self.picture) \
+            'picture' : '%s/%s' % (MEDIA_URL, self.picture) \
                 if self.picture else ''
         }
 

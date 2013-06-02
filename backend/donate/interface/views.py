@@ -88,8 +88,17 @@ def publish(request):
             return HttpResponse(status=404)
     else: # build new one
         tmp = Obj()
-        tmp.owner_id = int(data.get('userID'))
-
+        if data.has_key('userID') and int(data['userID']) > 0:
+            tmp.owner_id = int(data.get('userID'))
+        else:
+            # production
+            #return HttpResponse('UserId required', status=500)
+            # demo - test
+            tmpo = User()
+            tmpo.username = "AutoUser"
+            tmpo.contact = "user@domain.xx"
+            tmpo.save()
+            tmp.owner=tmpo
 
     tmp.name = data['objectName'] if data.has_key('objectName') else tmp.name
     tmp.tags = data['tags'] if data.has_key('tags') else tmp.tags
@@ -119,7 +128,6 @@ def bootstrap(request):
             [dict(zip(['pk','value'],p)) \
             for p in School.objects.values_list('pk','value')]
     }), status=200)
-
 
 
 ################################################################################
