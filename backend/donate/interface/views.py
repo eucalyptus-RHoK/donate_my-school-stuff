@@ -66,7 +66,7 @@ def search(request):
             ss.save()
     except Exception, e:
         return HttpResponse('Invalid query: '+str(e), status=500)
-    return HttpResponse(resp, status=200)
+    return HttpResponse(json.dumps(resp), status=200)
 
 def publish(request):
     data = request.POST['publish']
