@@ -1,329 +1,234 @@
-<!DOCTYPE html>
-<!--[if IE 8]>          <html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="en">
-<!--<![endif]-->
+{% load static %}
 
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width" />
-<meta name="author" content="Lorenzo Waldner">
-<meta name="author" content="Martin Brugnara">
+    <meta charset="utf-8">
+    <title>eucalyptus ~ donate my school stuff</title>
 
-
-<style type="text/css">
-body {
-  height: 100%;
-  width: 100%;
-}
-
-html {
-  height: 100%;
-  width: 100%;
-}
-
-.app {
-  display: inline;
-}
-
-#map-canvas {
-  height: 80%;
-  width: 100%;
-}
-
-#mapwrapper {
-  height: 800px;
-}
-</style>
-
-<title>Donate my school stuff</title>
-
-
-<link rel="stylesheet" href="{{STATIC_URL}}css/foundation.css" />
-
-
-<script src="{{STATIC_URL}}js/vendor/custom.modernizr.js"></script>
-
-<script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyDPJu0_3nAchYRpsEPfyn2TMA005kymj0I"></script>
-
-<script type="text/javascript">
-  var urlBase = "http://localhost";
-  var urlInitData = urlBase + "/json/initial_data.json"
-  var urlQueryResult = urlBase + "/json/result.json"
-  var map;
-  var checkPosition = false;
-  var positionLongitude = 0;
-  var positionLatitude = 0;
-
-  var latMarker = -34.397;
-  var lonMarker = 150.644;
-
-  function getAttualPosition() {
-
-    function showPosition(position) {
-      console.log(position);
-      latMarker = position.coords.latitude;
-      lonMarker = position.coords.longitude;
-    }
-
-    if (navigator.geolocation) {
-
-      navigator.geolocation.getCurrentPosition(function(position) {
-        console.log(position);
-        latMarker = position.coords.latitude;
-        lonMarker = position.coords.longitude;
-
-      });
-    } else {
-
-      console.log("error");
-      //error message, not support geolocation 
-
-    }
-
-  }
-  function initialize() {
-    //     getAttualPosition();
-    var mapOptions = {
-      center : new google.maps.LatLng(lonMarker, latMarker),
-      zoom : 8,
-      mapTypeId : google.maps.MapTypeId.ROADMAP
-    };
-    map = new google.maps.Map(document.getElementById("map-canvas"),
-        mapOptions);
-  }
-  google.maps.event.addDomListener(window, 'load', initialize);
-
-  function setMarker(map, latMarker, lonMarker, title) {
-
-    var marker = new google.maps.Marker({
-      position : new google.maps.LatLng(lonMarker, latMarker),
-      map : map,
-      title : title
-    });
-  }
-
-  //      }
-</script>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-nr-min.css">
+    <link rel="stylesheet" href="{% static "css/email.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome/css/font-awesome.css" %}">
+    <link rel="stylesheet/less" type="text/css" href="{% static "css/style.less" %}" />
 </head>
 <body>
-  <nav class="top-bar">
-    <ul class="title-area">
-      <!-- Title Area -->
-      <li class="name">
-        <h1>
-          <a href="#">Donate my school stuff</a>
-        </h1>
-      </li>
-      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-    </ul>
 
-    <section class="top-bar-section">
-      <!-- Left Nav Section -->
-      <ul class="left">
-        <li class="divider"></li>
-        <li class="active"><a href="#">Search</a></li>
-        <li class="divider"></li>
-        <li><a href="#">Your publish</a></li>
-        <li class="divider"></li>
-    </section>
-  </nav>
+<div class="pure-g-r content" id="layout">
+    <div class="pure-u" id="nav">
+        <a href="#" class="nav-menu-button">Menu</a>
 
+        <div class="nav-inner">
+            {#            <a class="pure-button primary-button" href="#">New</a>#}
 
-  <!--  -->
-  <div class="row">
-    <div class="large-12 columns">
-      <h2>Eucalypus Team</h2>
-      <hr />
-    </div>
-  </div>
+            <div class="pure-button pure-button-primary js-new-item">New</div>
 
-  <div class="row">
-    <div class="large-12 columns">
-      <div>
-        <form>
-          <fieldset>
-            <legend>Search field</legend>
-
-            <div class="row">
-              <div class="large-6 columns">
-                <input id="queryString" type="text"
-                  placeholder="What are you looking for?">
-              </div>
-
-              <div class="large-6 columns">
-                <label for="customDropdown1">School</label> <select
-                  id="dropdownSchool" class="small">
-                  <option DISABLED>School</option>
-
-                </select> <label for="customDropdown1">Category</label> <select
-                  id="dropdownCategory" class="small">
-                  <option DISABLED>Category</option>
-                </select>
-
-              </div>
-
+            <div class="pure-menu pure-menu-open">
+                <ul>
+                    <li class="js-search-item"><a href="#">Search <i class="icon-search"></i></a>
+                    </li>
+                    <li class="js-pubblication-item"><a href="#">Pubblication <i class="icon-list-alt "></i></a>
+                    </li>
+                </ul>
             </div>
-            <div class="row">
-              <div class="large-2 columns right">
-                <img id="btnSearch" src="./img/search.png"
-                  style="height: 40px; width: 40px; float: right;" />
-              </div>
+        </div>
+    </div>
+    {#    <div id="data-panel">#}
+    <div id="homepage"></div>
+    <div id="data-panel">
+        <div class="pure-u" id="list">
+
+        </div>
+        <div class="pure-u" id="main">
+            <div class="content">
+                <div id="right-panel" class="email-content pure-g">
+
+                </div>
             </div>
-          </fieldset>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
+</div>
 
-  <div class="row">
-    <div class="large-6 columns">
-      <div id="resultQuery"></div>
-    </div>
-    <div id="mapwrapper" class="large-6 columns">
-      <div id="map-canvas" />
-    </div>
-  </div>
-
-
-  
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="{% static "js/underscore-min.js" %}"></script>
+<script src="{% static "js/backbone-min.js" %}"></script>
+<script src="{% static "js/less-1.3.3.min.js" %}"></script>
+<script src="http://use.typekit.net/ajf8ggy.js"></script>
 <script>
-//     document.write('<script src=' 
-//  + ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') 
-//+ '.js><\/script>')
+    try {
+        Typekit.load();
+    } catch (e) {
+    }
 </script>
-  <script type="text/javascript" src="./js/jquery-2.0.2.min.js"></script>
-  <script type="text/javascript">
-    $.ajax({
-      url : urlInitData,
-      dataType : "json",
-      type : "GET",
-      success : function(result) {
-        for ( var i = 0; i < result.length; i++) {
-          //dropdownSchool
-          if (result[i].model == "storage.school") {
-            $("#dropdownSchool").append(
-                "<option>" + result[i].fields.value
-                    + "</option>");
-          }
-          if (result[i].model == "storage.category") {
-            $("#dropdownCategory").append(
-                "<option>" + result[i].fields.value
-                    + "</option>");
-          }
 
-        }
-      }
-    });
-  </script>
-  <script type="text/javascript">
-  $("#btnSearch").click(function(){
+<script type="text/template" id="welcome-template">
+    <div class="full-width">
+        <div class="homepage">
+            <h1 class="pure-u-1">donate my <i class="icon-home"></i> stuff</h1>
 
-//     $.post(urlQueryResult,{
-//         userID : '',
-//         searchstr: $("#queryString").val(),
-//         searchcat: $("#dropdownSchool").val(),
-//         searchschool: $("#dropdownCategory").val(),
-//       }, function(result){
-//         console.log(result);
-//         var data = $.parseJSON(result);
-//           console.log(data);
-//           for(var i = 0; i < data.length; i++){
-//             $("#resultQuery").append( ''+
-//             '<div class="row">'+
-//               '<div class="large-12 columns">'+
-//                 '<h3>'+data[i].objectPK.objectName+'</h3>'+
-//               '</div>'+
-//             '</div>'+
-//             '<div class="row">'+
-//               '<div class="large-12 columns">'+
-//                 '<p>'+data[i].objectPK.description+'</p>'+
-//               '</div>'+
-//             '</div>'+
-//             '<div class="row">'+
-//               '<div class="large-4 columns small">'+data[i].objectPK.school+'</div>'+
-//               '<div class="large-4 columns small">'+data[i].objectPK.category+'</div>'+
-//               '<div class="large-3 columns panel small">'+data[i].objectPK.tags+'</div>'+
-//             '</div>'+
-//             '<div class="row">'+
-//               '<div class="large-12 columns small">'+data[i].objectPK.owner_username+'</div>'+
-//             '</div>');
-          
-        
-//           }  }
-// );
-    
-    console.log("click event");
-    
-    $.ajax({
-        type : 'GET',
-//          type : 'POST',
-        url : urlQueryResult,
-        dataType : "json",
-        // post payload:
-//         data : JSON.stringify({
-//           userID : '',
-//           searchstr: $("#queryString").val(),
-//           searchcat: $("#dropdownSchool").val(),
-//           searchschool: $("#dropdownCategory").val(),
-//         }),
-        contentType : 'application/json',
-        success: function(data){
-          console.log(data);
-          for(var i = 0; i < data.length; i++){
-            $("#resultQuery").append( ''+
-            '<div class="row">'+
-              '<div class="large-12 columns">'+
-                '<h3>'+data[i].objectPK.objectName+'</h3>'+
-              '</div>'+
-            '</div>'+
-            '<div class="row">'+
-              '<div class="large-12 columns">'+
-                '<p>'+data[i].objectPK.description+'</p>'+
-              '</div>'+
-            '</div>'+
-            '<div class="row">'+
-              '<div class="large-4 columns small">'+data[i].objectPK.school+'</div>'+
-              '<div class="large-4 columns small">'+data[i].objectPK.category+'</div>'+
-              '<div class="large-3 columns panel small">'+data[i].objectPK.tags+'</div>'+
-            '</div>'+
-            '<div class="row">'+
-              '<div class="large-12 columns small">'+data[i].objectPK.owner_username+'</div>'+
-            '</div>');
-            
-          
-        }
-        }});
-    });
-  </script>
+            <h2 class="pure-u">by eucalyptus</h2>
 
-  <script src="{{STATIC_URL}}js/foundation.min.js"></script>
+            <div class="actions">
+                <hr>
+                <div class="pure-button pure-button-primary js-new-item">Add a new item</div>
+            </div>
+        </div>
+    </div>
+</script>
 
-  <script src="{{STATIC_URL}}js/foundation/foundation.dropdown.js"></script>
-  <script src="{{STATIC_URL}}js/foundation/foundation.forms.js"></script>
+<script type="text/template" id="sidebar-template">
+    <div class="content">
+        <div class="email-item email-item-selected pure-g">
+            <div class="pure-u">
+                <img class="email-avatar" alt="Tilo Mitra's avatar" src="http://api.twitter.com/1/users/profile_image?screen_name=tilomitra&amp;size=bigger" height="65" width="65">
+            </div>
 
-  <!--
-  <script src="js/foundation/foundation.js"></script>
-  <script src="js/foundation/foundation.alerts.js"></script>
-  <script src="js/foundation/foundation.clearing.js"></script>
-  <script src="js/foundation/foundation.cookie.js"></script>
-  <script src="js/foundation/foundation.dropdown.js"></script>
-  <script src="js/foundation/foundation.forms.js"></script>
-  <script src="js/foundation/foundation.joyride.js"></script>
-  <script src="js/foundation/foundation.magellan.js"></script>
-  <script src="js/foundation/foundation.orbit.js"></script>
-  <script src="js/foundation/foundation.placeholder.js"></script>
-  <script src="js/foundation/foundation.reveal.js"></script>
-  <script src="js/foundation/foundation.section.js"></script>
-  <script src="js/foundation/foundation.tooltips.js"></script>
-  <script src="js/foundation/foundation.topbar.js"></script>
-  <script src="js/foundation/foundation.interchange.js"></script>
-  -->
+            <div class="pure-u-3-4">
+                <h5 class="email-name">Tilo Mitra</h5>
+                <h4 class="email-subject">Hello from Toronto</h4>
 
-  <script>
-    $(document).foundation();
-  </script>
+                <p class="email-desc">
+                    Hey, I just wanted to check in with you from Toronto. I got here earlier today.
+                </p>
+            </div>
+        </div>
+
+        <div class="email-item email-item-unread pure-g">
+            <div class="pure-u">
+                <img class="email-avatar" alt="Eric Ferraiuolo's avatar" src="http://api.twitter.com/1/users/profile_image?screen_name=ericf&amp;size=bigger" height="65" width="65">
+            </div>
+
+            <div class="pure-u-3-4">
+                <h5 class="email-name">Eric Ferraiuolo</h5>
+                <h4 class="email-subject">Re: Pull Requests</h4>
+
+                <p class="email-desc">
+                    Hey, I had some feedback for pull request #51. We should center the menu so it looks better on mobile.
+                </p>
+            </div>
+        </div>
+
+        <div class="email-item email-item-unread pure-g">
+            <div class="pure-u">
+                <img class="email-avatar" alt="YUI's avatar" src="http://api.twitter.com/1/users/profile_image?screen_name=yuilibrary&amp;size=bigger" height="65" width="65" />
+            </div>
+
+            <div class="pure-u-3-4">
+                <h5 class="email-name">YUI Library</h5>
+                <h4 class="email-subject">You have 5 bugs assigned to you</h4>
+
+                <p class="email-desc">
+                    Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla.
+                </p>
+            </div>
+        </div>
+
+        <div class="email-item pure-g">
+            <div class="pure-u">
+                <img class="email-avatar" alt="Reid Burke's avatar" src="http://api.twitter.com/1/users/profile_image?screen_name=reid&amp;size=bigger" height="65" width="65" />
+            </div>
+
+            <div class="pure-u-3-4">
+                <h5 class="email-name">Reid Burke</h5>
+                <h4 class="email-subject">Re: Design Language</h4>
+
+                <p class="email-desc">
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa.
+                </p>
+            </div>
+        </div>
+
+        <div class="email-item pure-g">
+            <div class="pure-u">
+                <img class="email-avatar" alt="Andrew Wooldridge's avatar" src="http://api.twitter.com/1/users/profile_image?screen_name=triptych&amp;size=bigger" height="65" width="65" />
+            </div>
+
+            <div class="pure-u-3-4">
+                <h5 class="email-name">Andrew Wooldridge</h5>
+                <h4 class="email-subject">YUI Blog Updates?</h4>
+
+                <p class="email-desc">
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+                </p>
+            </div>
+        </div>
+
+        <div class="email-item pure-g">
+            <div class="pure-u">
+                <img class="email-avatar" alt="Yahoo! Finance's Avatar" src="http://api.twitter.com/1/users/profile_image?screen_name=yahoofinance&amp;size=bigger" height="65" width="65" />
+            </div>
+
+            <div class="pure-u-3-4">
+                <h5 class="email-name">Yahoo! Finance</h5>
+                <h4 class="email-subject">How to protect your finances from winter storms</h4>
+
+                <p class="email-desc">
+                    Mauris tempor mi vitae sem aliquet pharetra. Fusce in dui purus, nec malesuada mauris.
+                </p>
+            </div>
+        </div>
+
+        <div class="email-item pure-g">
+            <div class="pure-u">
+                <img class="email-avatar" alt="Yahoo! News' avatar" src="http://api.twitter.com/1/users/profile_image?screen_name=yahoonews&amp;size=bigger" height="65" width="65" />
+            </div>
+
+            <div class="pure-u-3-4">
+                <h5 class="email-name">Yahoo! News</h5>
+                <h4 class="email-subject">Summary for April 3rd, 2012</h4>
+
+                <p class="email-desc">
+                    We found 10 news articles that you may like.
+                </p>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="search-template">
+    <div class="email-content-header pure-g">
+        <div class="pure-u-1-2">
+            <h1 class="email-content-title">Search</h1>
+
+            <p class="email-content-subtitle">search the items you need</p>
+        </div>
+
+    </div>
+
+    <div class="email-content-body pure-u-1">
+        <form class="pure-form pure-form-aligned">
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="item">Item</label>
+                    <input id="item" class="pure-u-1-2" type="text" placeholder="Item">
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="category">Category</label>
+                    <select id="category" class="pure-u-1-2">
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="school">School</label>
+                    <select id="school" class="pure-u-1-2">
+                        <option></option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </div>
+
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button">Search</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</script>
+
+<script src="{% static "js/item.js" %}"></script>
+
 </body>
 </html>
