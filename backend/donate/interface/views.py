@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from storage.models import *
@@ -89,7 +90,7 @@ def publish(request):
     else: # build new one
         tmp = Obj()
         if data.has_key('userID') and int(data['userID']) > 0:
-            tmp.owner_id = int(data.get('userID'))
+            tmp.owner = get_object_or_404(User, int(data.get('userID')))
         else:
             # production
             #return HttpResponse('UserId required', status=500)
@@ -102,8 +103,9 @@ def publish(request):
 
     tmp.name = data['objectName'] if data.has_key('objectName') else tmp.name
     tmp.tags = data['tags'] if data.has_key('tags') else tmp.tags
-    tmp.school_id = int(data['school']) if data.has_key('school') else tmp.school
-    tmp.category_id = int(data['category']) \
+    tmp.school = get_object_or_404(School, int(data['school']))\
+            if data.has_key('school') else tmp.school
+    tmp.category = get_object_or_404(Category, int(data['category'])) \
         if data.has_key('category') else tmp.category
     tmp.description = data['description'] \
         if data.has_key('description') else tmp.description
@@ -129,6 +131,12 @@ def bootstrap(request):
             for p in School.objects.values_list('pk','value')]
     }), status=200)
 
+@csrf_exempt
+def get_object(request):
+    try:
+        return HttpResponse(json.dumps(get_object_or_404(Obj, pk=int(request.POST['object_pk'])).obj()))
+    except Exception, e:
+        return HttpResponse(status=500)
 
 ################################################################################
 

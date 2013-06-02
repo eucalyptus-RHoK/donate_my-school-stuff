@@ -5,4 +5,5 @@ urlpatterns = patterns('interface.views',
     (r'^search/$', 'search'),
     (r'^publish/$', 'publish'),
     (r'^bootstrap/$', 'bootstrap'),
+    (r'^get_object/$', 'get_object'),
 )
