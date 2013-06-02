@@ -28,7 +28,7 @@ def user(request): # login & update user information
         tmp.save()
         return HttpResponse(json.dumps({'userID':tmp.pk}), status=200)
     except Exception, e:
-        return HttpResponse(str(e), status=500)
+        return HttpResponse('Invalid query: '+str(e), status=500)
 
 
 def search(request):
@@ -65,14 +65,11 @@ def search(request):
                 ss.searchschool = int(data['searchschool'])
             ss.save()
     except Exception, e:
-        return HttpResponse(str(e), status=500)
+        return HttpResponse('Invalid query: '+str(e), status=500)
     return HttpResponse(resp, status=200)
 
 def publish(request):
-    try:
-        data = json.loads(request.POST['publish'])
-    except Exception, e:
-        return HttpResponse(str(e), status=500)
+    data = request.POST['publish']
     if data.has_key('delete') and data['delete']:
         try:
             tmp = Obj.objects.get(pk=int(data['objectPK']))
