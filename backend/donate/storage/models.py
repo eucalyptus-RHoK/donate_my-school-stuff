@@ -65,11 +65,11 @@ class Obj(models.Model):
     def obj(self):
         return {
             'object_pk' : self.pk,
-            'object_name' : self.username,
+            'object_name' : self.name,
             'school' : self.school.value if self.school else '',
             'category' : self.category.value if self.category else '',
             'description' : self.description or '',
-            'owner' : self.owner.name or '',
+            'owner' : self.owner.username or '',
             'tags' : self.tags or '',
             'picture' : '%s/%s' % (MEDIA_ROOT, self.picture) \
                 if self.picture else ''
