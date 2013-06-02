@@ -46,8 +46,8 @@ class Category(models.Model):
 class Obj(models.Model):
     name = models.CharField(max_length=255, verbose_name=('donation name'), null=False, blank=True)
     tags = models.CharField(max_length=500, verbose_name=('tags'), null=False, blank=True, default="")
-    school = models.ForeignKey(School, verbose_name=('school'))
-    category = models.ForeignKey(Category, verbose_name=('category'))
+    school = models.ForeignKey(School, verbose_name=('school'), null=True, blank=True)
+    category = models.ForeignKey(Category, verbose_name=('category'), null=True, blank=True)
     description = models.TextField(default='', null=False, blank=True)
     owner = models.ForeignKey(User, null=False)
     picture = models.CharField(max_length=50, verbose_name=('picture file name'), null=False, blank=True)
@@ -62,6 +62,19 @@ class Obj(models.Model):
     def __unicode__(self):
         return '%s [%s]' % (self.name, self.tags)
 
+    def obj(self):
+        return {
+            'object_pk' : self.pk,
+            'object_name' : self.name,
+            'school' : self.school__value or '',
+            'category' : self.category__vale or '',
+            'description' : self.description or '',
+            'owner' : self.owner__name or '',
+            'tags' : self.tags or '',
+            'picture' : '%s/%s' % (MEDIA_ROOT, self.picture) \
+                if self.picture else ''
+        }
+
 class SuspendedSearch(models.Model):
     user = models.ForeignKey(User, verbose_name=('user'))
     searchstr = models.CharField(max_length=255, null=True, default='')
@@ -73,4 +86,5 @@ class SuspendedSearch(models.Model):
         verbose_name_plural = 'suspended search'
 
     def __unicode__(self):
+        
         return '%s [%s]' % (self.user, self.searchstr)

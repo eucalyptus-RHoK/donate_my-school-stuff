@@ -34,7 +34,7 @@ def user(request): # login & update user information
 
 @csrf_exempt
 def search(request):
-    resp = ''
+    resp = []
     data = request.POST or {}
     ret = Obj.objects.all()
     try:
@@ -50,12 +50,7 @@ def search(request):
         if data.has_key('searchschool') and int(data['searchschool']) > 0:
             ret = ret.filter(school__pk=int(data['searchschool']))
 
-        resp = [dict(zip(['object_name', 'school', 'category', 'description', \
-                'owner', 'owner_name', 'tag', 'picture'], p)) for p in \
-                ret.select_related('owner__username').values_list(\
-                'name', 'school__value', 'category__value', 'description', \
-                'owner', 'owner__username', 'tags', 'picture').order_by(\
-                '-last_mod')[0:20]]
+        resp = [p for p.obj in ret.order_by('-last_mod')[0:20]]
 
         if len(resp) == 0 and data.has_key('userID'):
             ss = SuspendedSearch()
