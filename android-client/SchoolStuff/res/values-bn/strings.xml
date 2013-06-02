@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    
+    
+    
+     <string name="name">Tên</string>
+    <string name="tags">Tag</string>
+    <string name="place">Địa chỉ</string>
+    <string name="search">Tìm</string>
+    <string name="description">Mô tả</string>
+    <string name="go">Đi</string>
+    <string name="b_edit">Sửa</string>
+    <string name="b_cancel">Xóa</string>
+    <string name="message">Xin vui lòng đăng ký bằng địa chỉ email để tiếp tục</string>
+    
+    <string name="error_config">Xin vui lòng đặt lại tham số %1$s và chạy lại chương trình</string>
+    <string name="already_registered">Thiết bị đã đăng ký trong hệ thống</string>
+    <string name="gcm_registered">Từ GCM: thiết bị đã đăng ký thành công (regId = %1$s)!</string>
+    <string name="gcm_unregistered">Từ GCM: thiết bị đã được hủy đăng ký!</string>
+    <string name="gcm_message">Từ GCM: Bạn có thư mới!</string>
+    <string name="gcm_error">Từ GCM: Lỗi (%1$s).</string>
+    <string name="gcm_recoverable_error">Từ GCM: Lỗi phục hồi (%1$s).</string>
+    <string name="gcm_deleted">Từ GCM: Máy chủ đã xóa %1$d thư đang đến!</string>
+    <string name="server_registering">Đang (attempt %1$d/%2$d) đăng ký thiết bị trên máy chủ Demo.</string>
+    <string name="server_registered">Từ Demo Server: Thêm vào thiết bị thành công!</string>
+    <string name="server_unregistered">Từ Demo Server: xóa thiết bị thành công!</string>
+    <string name="server_register_error">Không thể đăng ký thiết bị sau %1$d lần thử.</string>
+    <string name="server_unregister_error">Không thể đăng ký thiết bị trên máy chủ Demo (%1$s).</string>
+    <string name="options_register">Đăng ký</string>
+    <string name="options_unregister">Hủy đăng ký</string>
+    <string name="options_clear">Xóa</string>
+    <string name="options_exit">Thoát</string>
+    
+    
+
+</resources>
