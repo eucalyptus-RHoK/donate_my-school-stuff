@@ -124,9 +124,9 @@ html {
 			<!-- Left Nav Section -->
 			<ul class="left">
 				<li class="divider"></li>
-				<li class="active"><a href="#">Search</a></li>
+				<li id="liSearch" class="active"><a href="#">Search</a></li>
 				<li class="divider"></li>
-				<li><a href="#">Your publish</a></li>
+				<li id="liPublish"><a href="#">Your publish</a></li>
 				<li class="divider"></li>
 		</section>
 	</nav>
@@ -140,162 +140,216 @@ html {
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="large-12 columns">
-			<div>
-				<form>
-					<fieldset>
-						<legend>Search field</legend>
+	<div id="searchWrapper">
+		<div class="row">
+			<div class="large-12 columns">
+				<div>
+					<form>
+						<fieldset>
+							<legend>Search field</legend>
 
-						<div class="row">
-							<div class="large-6 columns">
-								<input id="queryString" type="text"
-									placeholder="What are you searching?">
+							<div class="row">
+								<div class="large-6 columns">
+									<input id="queryString" type="text"
+										placeholder="What are you searching?">
+								</div>
+
+								<div class="large-6 columns">
+									<label for="customDropdown1">School</label> <select
+										id="dropdownSchool" class="small">
+										<option DISABLED>School</option>
+
+									</select> <label for="customDropdown1">Category</label> <select
+										id="dropdownCategory" class="small">
+										<option DISABLED>Category</option>
+									</select>
+
+								</div>
+
 							</div>
-
-							<div class="large-6 columns">
-								<label for="customDropdown1">School</label> <select
-									id="dropdownSchool" class="small">
-									<option DISABLED>School</option>
-
-								</select> <label for="customDropdown1">Category</label> <select
-									id="dropdownCategory" class="small">
-									<option DISABLED>Category</option>
-								</select>
-
+							<div class="row">
+								<div class="large-2 columns right">
+									<img id="btnSearch" src="./img/search.jpg"
+										style="height: 40px; width: 40px; float: right;" />
+								</div>
 							</div>
-
-						</div>
-						<div class="row">
-							<div class="large-2 columns right">
-								<img id="btnSearch" src="./img/search.jpg"
-									style="height: 40px; width: 40px; float: right;" />
-							</div>
-						</div>
-					</fieldset>
-				</form>
+						</fieldset>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="row">
-		<div class="large-6 columns">
-			<div id="resultQuery"></div>
+		<div class="row">
+			<div class="large-6 columns">
+				<div id="resultQuery"></div>
+			</div>
+			<div id="mapwrapper" class="large-6 columns">
+				<div id="map-canvas" />
+			</div>
 		</div>
-		<div id="mapwrapper" class="large-6 columns">
-			<div id="map-canvas" />
-		</div>
+
 	</div>
+	<div id="publishWrapper"></div>
 
-
-	
-<script>
-// 		document.write('<script src=' 
-//	+ ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') 
-//+ '.js><\/script>')
-</script>
-	<script type="text/javascript" src="./js/jquery-2.0.2.min.js"></script>
+	<script>
+		document.write(
+				'<script src='
+						+ ('__proto__' in {} ? 'js/vendor/zepto'
+								: 'js/vendor/jquery') + '.js><\/script>')
+	</script>
+	<!-- 	<script type="text/javascript" src="./js/jquery-2.0.2.min.js"></script> -->
 	<script type="text/javascript">
-		$.ajax({
-			url : urlInitData,
-			dataType : "json",
-			type : "GET",
-			success : function(result) {
-				for ( var i = 0; i < result.length; i++) {
-					//dropdownSchool
-					if (result[i].model == "storage.school") {
-						$("#dropdownSchool").append(
-								"<option>" + result[i].fields.value
-										+ "</option>");
-					}
-					if (result[i].model == "storage.category") {
-						$("#dropdownCategory").append(
-								"<option>" + result[i].fields.value
-										+ "</option>");
-					}
+		(function initShowPage() {
+			$("#searchWrapper").show();
+			$("#mapwrapper").hide();
+			$("#publishWrapper").hide();
 
+			$.ajax({
+				url : urlInitData,
+				dataType : "json",
+				type : "GET",
+				
+				success : function(result) {
+					for ( var i = 0; i < result.length; i++) {
+						//dropdownSchool
+						if (result[i].model == "storage.school") {
+							$("#dropdownSchool").append(
+									"<option>" + result[i].fields.value
+											+ "</option>");
+						}
+						if (result[i].model == "storage.category") {
+							$("#dropdownCategory").append(
+									"<option>" + result[i].fields.value
+											+ "</option>");
+						}
+
+					}
 				}
-			}
-		});
+			});
+
+			$("#liPublish").click(function(){
+				$(".active").removeClass("active");
+				$("#liPublish").addClass("active");
+				$("#searchWrapper").hide();
+				$("#publishWrapper").show();
+			});
+			$("#liSearch").click(function(){
+				$("#searchWrapper").show();
+				$("#publishWrapper").hide();
+				$(".active").removeClass("active");
+				$("#liSearch").addClass("active");
+				
+			});
+		})();
 	</script>
 	<script type="text/javascript">
-	$("#btnSearch").click(function(){
+			</script>
+	<script type="text/javascript">
+		function resultSendQuery(result) {
+			var data = $.parseJSON(result);
+			console.log(data);
+			if(data.lenght > 0){
+				$("#mapwrapper").show();
+			}else{
+				$("#mapwrapper").hide();
+				$("#resultQuery").html( '<div class="row">'
+						+ '<div class="large-12 columns">' + '<h3>'
+						+ 'No Result'
+						+ '</h3>'
+						+ '</div>'
+						+ '</div>');
 
-// 		$.post(urlQueryResult,{
-// 				userID : '',
-// 				searchstr: $("#queryString").val(),
-// 				searchcat: $("#dropdownSchool").val(),
-// 				searchschool: $("#dropdownCategory").val(),
-// 			}, function(result){
-// 				console.log(result);
-// 				var data = $.parseJSON(result);
-// 					console.log(data);
-// 					for(var i = 0; i < data.length; i++){
-// 						$("#resultQuery").append( ''+
-// 						'<div class="row">'+
-// 							'<div class="large-12 columns">'+
-// 								'<h3>'+data[i].objectPK.objectName+'</h3>'+
-// 							'</div>'+
-// 						'</div>'+
-// 						'<div class="row">'+
-// 							'<div class="large-12 columns">'+
-// 								'<p>'+data[i].objectPK.description+'</p>'+
-// 							'</div>'+
-// 						'</div>'+
-// 						'<div class="row">'+
-// 							'<div class="large-4 columns small">'+data[i].objectPK.school+'</div>'+
-// 							'<div class="large-4 columns small">'+data[i].objectPK.category+'</div>'+
-// 							'<div class="large-3 columns panel small">'+data[i].objectPK.tags+'</div>'+
-// 						'</div>'+
-// 						'<div class="row">'+
-// 							'<div class="large-12 columns small">'+data[i].objectPK.owner_username+'</div>'+
-// 						'</div>');
-					
-				
-// 					}	}
-// );
-		
-		console.log("click event");
-		
-		$.ajax({
-				type : 'GET',
-//  				type : 'POST',
+			}
+			for ( var i = 0; i < data.length; i++) {
+				$("#resultQuery").append(
+						'' + '<div class="row">'
+								+ '<div class="large-12 columns">' + '<h3>'
+								+ data[i].objectPK.objectName
+								+ '</h3>'
+								+ '</div>'
+								+ '</div>'
+								+ '<div class="row">'
+								+ '<div class="large-12 columns">'
+								+ '<p>'
+								+ data[i].objectPK.description
+								+ '</p>'
+								+ '</div>'
+								+ '</div>'
+								+ '<div class="row">'
+								+ '<div class="large-4 columns small">'
+								+ data[i].objectPK.school
+								+ '</div>'
+								+ '<div class="large-4 columns small">'
+								+ data[i].objectPK.category
+								+ '</div>'
+								+ '<div class="large-3 columns panel small">'
+								+ data[i].objectPK.tags
+								+ '</div>'
+								+ '</div>'
+								+ '<div class="row">'
+								+ '<div class="large-12 columns small">'
+								+ data[i].objectPK.owner_username
+								+ '</div>'
+								+ '</div>');
+
+			}
+		}
+
+		function errorAjax(err){
+			console.log(err);
+		}
+		$("#btnSearch").click(function() {
+
+			// 		$.post(urlQueryResult,{
+			// 				userID : '',
+			// 				searchstr: $("#queryString").val(),
+			// 				searchcat: $("#dropdownSchool").val(),
+			// 				searchschool: $("#dropdownCategory").val(),
+			// 			}, function(result){
+			// 				console.log(result);
+			// 				var data = $.parseJSON(result);
+			// 					console.log(data);
+			// 					for(var i = 0; i < data.length; i++){
+			// 						$("#resultQuery").append( ''+
+			// 						'<div class="row">'+
+			// 							'<div class="large-12 columns">'+
+			// 								'<h3>'+data[i].objectPK.objectName+'</h3>'+
+			// 							'</div>'+
+			// 						'</div>'+
+			// 						'<div class="row">'+
+			// 							'<div class="large-12 columns">'+
+			// 								'<p>'+data[i].objectPK.description+'</p>'+
+			// 							'</div>'+
+			// 						'</div>'+
+			// 						'<div class="row">'+
+			// 							'<div class="large-4 columns small">'+data[i].objectPK.school+'</div>'+
+			// 							'<div class="large-4 columns small">'+data[i].objectPK.category+'</div>'+
+			// 							'<div class="large-3 columns panel small">'+data[i].objectPK.tags+'</div>'+
+			// 						'</div>'+
+			// 						'<div class="row">'+
+			// 							'<div class="large-12 columns small">'+data[i].objectPK.owner_username+'</div>'+
+			// 						'</div>');
+
+			// 					}	}
+			// );
+
+			console.log("click event");
+
+			$.ajax({
+
+				type : 'POST',
 				url : urlQueryResult,
-				dataType : "json",
-				// post payload:
-// 				data : JSON.stringify({
-// 					userID : '',
-// 					searchstr: $("#queryString").val(),
-// 					searchcat: $("#dropdownSchool").val(),
-// 					searchschool: $("#dropdownCategory").val(),
-// 				}),
+				dataType : "text",
+				data : JSON.stringify({
+					userID : '',
+					searchstr : $("#queryString").val(),
+					searchcat : $("#dropdownSchool").val(),
+					searchschool : $("#dropdownCategory").val(),
+				}),
 				contentType : 'application/json',
-				success: function(data){
-					console.log(data);
-					for(var i = 0; i < data.length; i++){
-						$("#resultQuery").append( ''+
-						'<div class="row">'+
-							'<div class="large-12 columns">'+
-								'<h3>'+data[i].objectPK.objectName+'</h3>'+
-							'</div>'+
-						'</div>'+
-						'<div class="row">'+
-							'<div class="large-12 columns">'+
-								'<p>'+data[i].objectPK.description+'</p>'+
-							'</div>'+
-						'</div>'+
-						'<div class="row">'+
-							'<div class="large-4 columns small">'+data[i].objectPK.school+'</div>'+
-							'<div class="large-4 columns small">'+data[i].objectPK.category+'</div>'+
-							'<div class="large-3 columns panel small">'+data[i].objectPK.tags+'</div>'+
-						'</div>'+
-						'<div class="row">'+
-							'<div class="large-12 columns small">'+data[i].objectPK.owner_username+'</div>'+
-						'</div>');
-						
-					
-				}
-				}});
+				success : resultSendQuery,
+				error:  errorAjax
+			});
 		});
 	</script>
 
