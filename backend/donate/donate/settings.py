@@ -12,8 +12,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'rhok',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'rhok.db',
         'USER': 'rhok',
         'PASSWORD': 'rhok',
         'HOST': '127.0.0.1',

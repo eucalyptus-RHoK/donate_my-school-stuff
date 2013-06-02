@@ -1,4 +1,3 @@
 simplejson
 unipath
-mysql-python
 Django

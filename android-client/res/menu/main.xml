@@ -1,10 +1,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
     
-
+    <item 
+        android:id="@+id/bar_search"
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_search"
+        />
+    
+    
+    <item 
+        android:id="@+id/bar_my_list"
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_agenda"
+        />
+    
+    
+    
+     <item 
+        android:id="@+id/bar_settings"
+        android:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_preferences"
+        />
+    
+    
 </menu>
