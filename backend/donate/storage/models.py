@@ -66,8 +66,8 @@ class Obj(models.Model):
         return {
             'object_pk' : self.pk,
             'object_name' : self.name,
-            'school' : self.school__value or '',
-            'category' : self.category__vale or '',
+            'school' : self.school__value if self.school else '',
+            'category' : self.category__value if self.category else '',
             'description' : self.description or '',
             'owner' : self.owner__name or '',
             'tags' : self.tags or '',
