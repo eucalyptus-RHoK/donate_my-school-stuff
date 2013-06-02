@@ -34,7 +34,7 @@ def user(request): # login & update user information
 
 @csrf_exempt
 def search(request):
-    resp = ''
+    resp = []
     data = request.POST or {}
     ret = Obj.objects.all()
     try:
@@ -50,12 +50,7 @@ def search(request):
         if data.has_key('searchschool') and int(data['searchschool']) > 0:
             ret = ret.filter(school__pk=int(data['searchschool']))
 
-        resp = [dict(zip(['object_name', 'school', 'category', 'description', \
-                'owner', 'owner_name', 'tag', 'picture'], p)) for p in \
-                ret.select_related('owner__username').values_list(\
-                'name', 'school__value', 'category__value', 'description', \
-                'owner', 'owner__username', 'tags', 'picture').order_by(\
-                '-last_mod')[0:20]]
+        resp = [p.obj() for p in ret.order_by('-last_mod')[0:20]]
 
         if len(resp) == 0 and data.has_key('userID'):
             ss = SuspendedSearch()
@@ -93,8 +88,17 @@ def publish(request):
             return HttpResponse(status=404)
     else: # build new one
         tmp = Obj()
-        tmp.owner_id = int(data.get('userID'))
-
+        if data.has_key('userID') and int(data['userID']) > 0:
+            tmp.owner_id = int(data.get('userID'))
+        else:
+            # production
+            #return HttpResponse('UserId required', status=500)
+            # demo - test
+            tmpo = User()
+            tmpo.username = "AutoUser"
+            tmpo.contact = "user@domain.xx"
+            tmpo.save()
+            tmp.owner=tmpo
 
     tmp.name = data['objectName'] if data.has_key('objectName') else tmp.name
     tmp.tags = data['tags'] if data.has_key('tags') else tmp.tags
@@ -124,7 +128,6 @@ def bootstrap(request):
             [dict(zip(['pk','value'],p)) \
             for p in School.objects.values_list('pk','value')]
     }), status=200)
-
 
 
 ################################################################################
