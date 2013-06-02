@@ -66,10 +66,10 @@ class Obj(models.Model):
         return {
             'object_pk' : self.pk,
             'object_name' : self.name,
-            'school' : self.school__value if self.school else '',
-            'category' : self.category__value if self.category else '',
+            'school' : self.school.value if self.school else '',
+            'category' : self.category.value if self.category else '',
             'description' : self.description or '',
-            'owner' : self.owner__name or '',
+            'owner' : self.owner.name or '',
             'tags' : self.tags or '',
             'picture' : '%s/%s' % (MEDIA_ROOT, self.picture) \
                 if self.picture else ''
@@ -86,5 +86,4 @@ class SuspendedSearch(models.Model):
         verbose_name_plural = 'suspended search'
 
     def __unicode__(self):
-        
         return '%s [%s]' % (self.user, self.searchstr)
