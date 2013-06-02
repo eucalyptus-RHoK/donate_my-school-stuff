@@ -36,7 +36,7 @@ def search(request):
     data = request.POST or {}
     ret = Obj.objects.all()
     try:
-        if data.has_key(data['userID']) and int(data['userID'])>0:
+        if data.has_key('userID') and int(data['userID'])>0:
             ref = ret.filter(user__id=data['userID'])
         if data.has_key('searchstr'):
             for chunk in data['searchstr'].split(' '):
