@@ -1,0 +1,38 @@
+[
+    "objectPK": {
+        "objectName" : "Science book",
+        "tags": "books",
+        "school": "primary school",
+        "category": "",
+        "description": "is my science book",
+        "owner": "I",
+        "owner_username": "lorenzo waldner",
+    },
+"objectPK": {
+        "objectName" : "Science 2 book",
+        "tags": "books",
+        "school": "primary school",
+        "category": "",
+        "description": "is my science book",
+        "owner": "I",
+        "owner_username": "lorenzo waldner",
+    },
+"objectPK": {
+        "objectName" : "Science 3 book",
+        "tags": "books",
+        "school": "primary school",
+        "category": "",
+        "description": "is my science book",
+        "owner": "I",
+        "owner_username": "lorenzo waldner",
+    },
+"objectPK": {
+        "objectName" : "Titolo del libro!!!",
+        "tags": "books",
+        "school": "primary school",
+        "category": "",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "owner": "I",
+        "owner_username": "lorenzo waldner",
+    }
+]
