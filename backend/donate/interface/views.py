@@ -3,13 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render, render_to_response, redirect
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 from storage.models import *
 import simplejson as json
 from unipath import FSPath as Path
 from donate.settings import MEDIA_ROOT
 import time, base64
 
-
+@csrf_exempt
 def user(request): # login & update user information
     try:
         data = request.POST or {}
@@ -31,6 +32,7 @@ def user(request): # login & update user information
         return HttpResponse('Invalid query: '+str(e), status=500)
 
 
+@csrf_exempt
 def search(request):
     resp = ''
     data = request.POST or {}
@@ -68,6 +70,7 @@ def search(request):
         return HttpResponse('Invalid query: '+str(e), status=500)
     return HttpResponse(json.dumps(resp), status=200)
 
+@csrf_exempt
 def publish(request):
     data = request.POST['publish']
     if data.has_key('delete') and data['delete']:
@@ -107,6 +110,7 @@ def publish(request):
 
     return HttpResponse(o.json, status=200)
 
+@csrf_exempt
 def bootstrap(request):
     return HttpResponse(json.dumps({
         'categories' :
