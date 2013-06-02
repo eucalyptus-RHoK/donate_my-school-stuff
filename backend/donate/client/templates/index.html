@@ -24,9 +24,11 @@
 
             <div class="pure-menu pure-menu-open">
                 <ul>
-                    <li class="js-search-item"><a href="#">Search <i class="icon-search"></i></a>
+                    <li class="js-search-item"><a href="#">Search
+                        <i class="icon-search"></i></a>
                     </li>
-                    <li class="js-pubblication-item"><a href="#">Pubblication <i class="icon-list-alt "></i></a>
+                    <li class="js-pubblication-item"><a href="#">Pubblication
+                        <i class="icon-list-alt "></i></a>
                     </li>
                 </ul>
             </div>
@@ -205,18 +207,24 @@
                 <div class="pure-control-group">
                     <label for="category">Category</label>
                     <select id="category" class="pure-u-1-2">
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                        <option value="-1">--</option>
+                        <% for(var i in categories) { %>
+                            <option value="<%= categories[i].pk %>">
+                                <%= categories[i].value %>
+                            </option>
+                        <% } %>
                     </select>
                 </div>
 
                 <div class="pure-control-group">
                     <label for="school">School</label>
                     <select id="school" class="pure-u-1-2">
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                        <option value="-1">--</option>
+                        <% for(var i in schools) { %>
+                            <option value="<%= schools[i].pk %>">
+                                <%= schools[i].value %>
+                            </option>
+                        <% } %>
                     </select>
                 </div>
 
