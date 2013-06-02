@@ -10,3 +10,4 @@ Davide Giovannini <giovannini.davide90@gmail.com> (GTalk)
 Erinda Jaupaj <erindajaupi@gmail.com> (GTalk)
 Md Shahid Ullah <Shahideee04@gmail.com>
 Martin Brugnara <martin.brugnara@gmail.com>
+Dieu Thu Le <dieu.thu@gmail.com>
