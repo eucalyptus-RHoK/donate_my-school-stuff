@@ -11,10 +11,12 @@ class SchoolAdmin(admin.ModelAdmin):
     pass
 class CategoryAdmin(admin.ModelAdmin):
     pass
+class SsAdmin(admin.ModelAdmin):
+    pass
 
 
 admin.site.register(Obj, ObjAdmin)
 admin.site.register(User, UserAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(School, SchoolAdmin)
-admin.site.register(Category, CategoryAdmin)
+admin.site.register(SuspendedSearch, SsAdmin)

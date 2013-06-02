@@ -12,8 +12,7 @@ import time, base64
 
 def user(request): # login & update user information
     try:
-        data = json.loads(request.POST['login'])
-
+        data = request.POST or {}
         if data.has_key: # update
             tmp = User.objects.get(pk=data['userID'])
         else: #try to login
@@ -34,27 +33,37 @@ def user(request): # login & update user information
 
 def search(request):
     resp = ''
-    data = {}
-    try:
-        data = json.loads(request.POST['search'])
-    except Exception, e:
-        return HttpResponse(str(e), status=500)
+    data = request.POST or {}
     ret = Obj.objects.all()
     try:
+        if data.has_key(data['userID']) and int(data['userID']):
+            ref = ref.filter(user__id=data['userID'])
         if data.has_key('searchstr'):
             for chunk in data['searchstr'].split(' '):
                 ret = ret.filter(Q(name__contains=chunk) | \
                     Q(description__contains=chunk) | \
                     Q(tags=chunk))
         if data.has_key('searchcat') and int(data['searchcat']) > 0 :
-            ret = ret.filter(category=int(data['searchcat']))
+            ret = ret.filter(category__pk=int(data['searchcat']))
         if data.has_key('searchschool') and int(data['searchschool']) > 0:
-            ret = ret.filter(school=int(data['searchschool']))
+            ret = ret.filter(school__pk=int(data['searchschool']))
+
         resp = [dict(zip(['objectName', 'school', 'category', 'description', \
                 'owner', 'owner_name', 'tag', 'picture'], p)) for p in \
                 ret.select_related('owner__username').values_list(\
                 'name', 'school__value', 'category__value', 'description', \
-                'owner', 'owner__username', 'tags', 'picture')]
+                'owner', 'owner__username', 'tags', 'picture').sort(\
+                -last_mod)[0:20]]
+        if len(resp) == 0 and data.has_key('userID'):
+            ss = SuspendedSearch()
+            ss.user = data['userID']
+            if data.has_key('searchstr'):
+                ss.searchstr = data['searchstr']
+            if data.has_key('searchcat') and int(data['searchcat']) > 0 :
+                ss.searchcat = int(data['searchcat'])
+            if data.has_key('searchschool') and int(data['searchschool']) > 0:
+                ss.searchschool = int(data['searchschool'])
+            ss.save()
     except Exception, e:
         return HttpResponse(str(e), status=500)
     return HttpResponse(resp, status=200)
@@ -91,10 +100,13 @@ def publish(request):
         if data.has_key('category') else tmp.category
     tmp.description = data['description'] \
         if data.has_key('description') else tmp.description
+    tmp.location_lat = data['lat'] \
+        if data.has_key('lat') else tmp.location_lat
+    tmp.location_lon = data['lon'] \
+        if data.has_key('lon') else tmp.location_lon
     if data.has_key('image') :
         tmp.picture = \
             save_img(int(data['userID']), data['image'], data['image_ext'])
-
 
     return HttpResponse(o.json, status=200)
 

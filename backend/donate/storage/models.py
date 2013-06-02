@@ -51,6 +51,9 @@ class Obj(models.Model):
     description = models.TextField(default='', null=False, blank=True)
     owner = models.ForeignKey(User, null=False)
     picture = models.CharField(max_length=50, verbose_name=('picture file name'), null=False, blank=True)
+    location_lat = models.DecimalField(max_digits=19, decimal_places=16, blank=True, null=True)
+    location_lon = models.DecimalField(max_digits=19, decimal_places=16, blank=True, null=True)
+    last_mod = models.DateTimeField(auto_now=True verbose_name=('last mod'))
 
     class Meta(object):
         verbose_name = 'object'
@@ -58,3 +61,16 @@ class Obj(models.Model):
 
     def __unicode__(self):
         return '%s [%s]' % (self.name, self.tags)
+
+def SuspendedSearch(models.Model):
+    user = models.ForeignKey(User, verbose_name=('user'))
+    searchstr = models.CharField(max_length=255, null=True, default='')
+    searchcat = models.IntegerField(null=True, default=None)
+    searchschool = models.IntegerField(null=True, default=None)
+
+    class Meta(object):
+        verbose_name = 'suspended search'
+        verbose_name_plural = 'suspended search'
+
+    def __unicode__(self):
+        return '%s [%s]' % (self.user, self.searchstr)
